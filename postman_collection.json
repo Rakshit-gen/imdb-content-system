@@ -1,0 +1,129 @@
+{
+  "info": {
+    "name": "IMDb Content Upload & Review API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:5000" }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/health"
+      }
+    },
+    {
+      "name": "Upload CSV",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/api/v1/upload",
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/path/to/your/movies.csv"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Upload Job Status",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/api/v1/upload/{{job_id}}"
+      }
+    },
+    {
+      "name": "List Movies (Default)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/v1/movies",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "movies"]
+        }
+      }
+    },
+    {
+      "name": "List Movies - Filter by Year",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/v1/movies?year=2023",
+          "query": [{ "key": "year", "value": "2023" }]
+        }
+      }
+    },
+    {
+      "name": "List Movies - Filter by Language",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/v1/movies?language=English",
+          "query": [{ "key": "language", "value": "English" }]
+        }
+      }
+    },
+    {
+      "name": "List Movies - Sort by Ratings DESC",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/v1/movies?sort_by=ratings&sort_order=desc",
+          "query": [
+            { "key": "sort_by", "value": "ratings" },
+            { "key": "sort_order", "value": "desc" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "List Movies - Sort by Release Date ASC",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/v1/movies?sort_by=release_date&sort_order=asc",
+          "query": [
+            { "key": "sort_by", "value": "release_date" },
+            { "key": "sort_order", "value": "asc" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "List Movies - Paginated",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/v1/movies?page=2&page_size=10",
+          "query": [
+            { "key": "page", "value": "2" },
+            { "key": "page_size", "value": "10" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "List Movies - All Filters Combined",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/v1/movies?year=2022&language=English&sort_by=ratings&sort_order=desc&page=1&page_size=20",
+          "query": [
+            { "key": "year", "value": "2022" },
+            { "key": "language", "value": "English" },
+            { "key": "sort_by", "value": "ratings" },
+            { "key": "sort_order", "value": "desc" },
+            { "key": "page", "value": "1" },
+            { "key": "page_size", "value": "20" }
+          ]
+        }
+      }
+    }
+  ]
+}
